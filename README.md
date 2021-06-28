@@ -1,0 +1,2 @@
+# mysqliter
+mysql object wrapper
