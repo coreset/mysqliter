@@ -3,12 +3,24 @@ const mysql = require('mysql');
 
 function Model(name, schema, config){
 
-    this.table= name; // init
-    this.config= config; // init
+    /**
+     * table name as model name will assign when init model
+     * @type {string}
+     */
+    this.table= name; 
 
+    /**
+     * config for mysql conndection
+     * @type {Object}
+     */
+    this.config= config; 
 
+    /**
+     * query - builded mysql query
+     * @type {string}
+     */
     this.query='';
-    this.selects=''; // default for all
+    this.selects=''; 
     this.condition='';
     this.limits='';
     this.updates= '';
@@ -101,12 +113,12 @@ function Model(name, schema, config){
      * @returns {any}
      */
     this.where= function(field){
-        this.condition += this.condition ?  '&&' : '';
+        this.condition += this.condition ?  'AND' : '';
         this.tempf= field;
         return this;
     }
     this.or= function(field){
-        this.condition += this.condition ?  '||' : '';
+        this.condition += this.condition ?  'OR' : '';
         this.tempf= field;
         return this;
     }
@@ -162,9 +174,7 @@ function Model(name, schema, config){
     }
 
     this.exec= function(cb){
-        //console.log("call exec function....");
         this.generateQuery();
-        //console.log("exec ############# :",this.query);
         const query= this.query;
         const config= this.config;
 
@@ -198,7 +208,6 @@ function Mysqliter(){
     this.config;
 
     this.model= function(name, schema){
-        console.log("###### init model", this.config);
         return new Model(name, schema, this.config);
     }
 
