@@ -1,0 +1,22 @@
+{
+  "name": "mysqliter",
+  "version": "1.0.0",
+  "description": "mysql wrapper",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coreset/mysqliter.git"
+  },
+  "author": "Samadhi Laksahan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/coreset/mysqliter/issues"
+  },
+  "homepage": "https://github.com/coreset/mysqliter#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}
