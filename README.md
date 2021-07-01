@@ -1,7 +1,16 @@
 # mysqliter
 mysql wrapper for object query builder(dev stage)
 
-## Create Model
+## Create Model    
+
+```javascript
+const modelName = 'vender';
+const mysqliter = require('mysqliter');
+
+const schema = {};
+
+module.exports = mysqliter.model(modelName,schema);
+```
 
 ## Select Query
 

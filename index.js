@@ -195,7 +195,7 @@ function Model(name, schema, config){
         } catch (err) {
             cb(err, null); 
         }
-        cb(null);
+
     }
     
 }
