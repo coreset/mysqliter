@@ -29,6 +29,18 @@ function Model(name, schema, config){
     this.tempf='';// temp field
     this.leans= false;
 
+    /**
+     * clear - clear all variables
+     * @type {Function}
+     */
+    this.clear= function(){
+        //this.query='';
+        this.selects=''; 
+        this.condition='';
+        this.limits='';
+        this.leans= false;
+    }
+
     this.QSelect= function(){
         this.query= `SELECT ${this.getSelect()}  FROM ${this.table}  ${this.getCondition()} ${this.getLimit()}  `;
     }
@@ -76,18 +88,18 @@ function Model(name, schema, config){
      * 
      */
     this.find= function(){
-        this.leans= false;
+        this.clear();
         this.generateQuery = this.QSelect;
         return this;
     }
     this.update= function(obj){
-        this.leans= false;
+        this.clear();
         this.updates = Object.keys(obj).map(key=> `${key}=${ this.isNumber(obj[key]) ? obj[key] : "'"+obj[key]+"'" }`).join(',');
         this.generateQuery = this.QUpdate;
         return this;
     }
     this.insert= function(obj){
-        this.leans= false;
+        this.clear();
         this.inserts.fields   = Object.keys(obj).join(',');
         this.inserts.values   = Object.values(obj).map(value=> `${ this.isNumber(value) ? value : "'"+value+"'" }`).join(',');
         this.generateQuery = this.QInsert;
