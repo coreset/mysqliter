@@ -113,36 +113,36 @@ function Model(name, schema, config){
      * @returns {any}
      */
     this.where= function(field){
-        this.condition += this.condition ?  'AND' : '';
+        this.condition += this.condition ?  ' AND ' : '';
         this.tempf= field;
         return this;
     }
     this.or= function(field){
-        this.condition += this.condition ?  'OR' : '';
+        this.condition += this.condition ?  ' OR ' : '';
         this.tempf= field;
         return this;
     }
     this.equals= function(value){
-        this.condition += `${this.tempf}= ${value}`;
+        this.condition += `${this.tempf}= ${this.isNumber(value) ? value : "'"+value+"'"}`;
         return this;
     }
     this.eq= function(value){
         return this.equals(value);
     }
-    this.gt= function(){
-        this.condition += `${this.tempf}  > ${value}`;
+    this.gt= function(value){
+        this.condition += `${this.tempf}  > ${this.isNumber(value) ? value : "'"+value+"'"}`;
         return this;
     }
-    this.gte= function(){ // greater than or equals
-        this.condition += `${this.tempf}  >= ${value}`;
+    this.gte= function(value){ // greater than or equals
+        this.condition += `${this.tempf}  >= ${this.isNumber(value) ? value : "'"+value+"'"}`;
         return this;
     }
-    this.lt= function(){
-        this.condition += `${this.tempf}  < ${value}`;
+    this.lt= function(value){
+        this.condition += `${this.tempf}  < ${this.isNumber(value) ? value : "'"+value+"'"}`;
         return this;
     }
-    this.lte= function(){ // less than or equals
-        this.condition += `${this.tempf}  <= ${value}`;
+    this.lte= function(value){ // less than or equals
+        this.condition += `${this.tempf}  <= ${this.isNumber(value) ? value : "'"+value+"'"}`;
         return this;
     }
     this.in= function(){

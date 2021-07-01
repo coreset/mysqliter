@@ -1,6 +1,23 @@
 # mysqliter
 mysql wrapper for object query builder(dev stage)
 
+## Initiate Mysql Database   
+
+```javascript
+const config = {
+  server: 'localhost',
+  port: '3306',
+  database: 'database_name',
+  user: 'root',
+  password: 'pass'
+};
+
+const mysqliter  =require('mysqliter');
+mysqliter.connect(config , {
+    //useFindAndModify: false
+});
+```
+
 ## Create Model    
 
 ```javascript
