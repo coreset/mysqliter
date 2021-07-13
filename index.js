@@ -87,9 +87,10 @@ function Model(name, schema, config){
      * 
      * 
      */
-    this.find= function(){
+    this.find= function(query){
         this.clear();
         this.generateQuery = this.QSelect;
+        this.condition += query ?  query : '';
         return this;
     }
     this.update= function(obj){
@@ -118,7 +119,7 @@ function Model(name, schema, config){
 
     this.isNumber = function(value) {
         return typeof value === 'number' && isFinite(value);
-      }
+    }
       
     /** operator query
      * 
@@ -135,7 +136,15 @@ function Model(name, schema, config){
         return this;
     }
     this.equals= function(value){
-        this.condition += `${this.tempf}= ${this.isNumber(value) ? value : "'"+value+"'"}`;
+
+        if(value===null){
+            return this.isNull(); // this.condition += `${this.tempf} IS NULL `;
+        }else if(this.isNumber(value)){
+            this.condition += `${this.tempf}=${value}`;
+        }else{
+            this.condition += `${this.tempf}=${"'"+value+"'"}`;
+        }
+        
         return this;
     }
     this.eq= function(value){
@@ -174,6 +183,10 @@ function Model(name, schema, config){
         this.limits= value;  
         return this;
     }
+    this.isNull= function(){
+        this.condition += `${this.tempf} IS NULL `;
+        return this;
+    }
 
 
     /** save query
@@ -188,6 +201,7 @@ function Model(name, schema, config){
     this.exec= function(cb){
         this.generateQuery();
         const query= this.query;
+        //console.log("query :", query);
         const config= this.config;
 
         try {
@@ -229,7 +243,6 @@ function Mysqliter(){
     this.connect= function(config){
         this.config = config;
     }
-
 
 }
 

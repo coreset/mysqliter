@@ -85,6 +85,23 @@ vender.insert(insertdata)
 
 ```
 
+## Use Native Query Condition
+
+```javascript
+const vender = require('../../../common/models/vender');
+
+vender.find('contactNumber= "0703032901" ')
+      .select('firstName lastName')
+      .limit(1)
+      .exec(function (err, result){       
+         if(err){
+            console.log("find error : ", err);
+         }else{
+             console.log("find result : ", result);
+         }
+      });
+```
+
 ## selecting conditions
 
 builder | query
@@ -96,3 +113,6 @@ builder | query
 *.where(age).lte(25)* |  age <= 25
 *.where(age).lt(35).where(age).gt(25)* |  age < 35 AND age > 25
 *.or(age).lt(35).or(age).gt(25)* |  age < 35  OR > 25
+*.where(firstname).equals(null)* |  firstname IS NULL
+*.where(firstname).isNull()* |  firstname IS NULL
+*.find(' date = "2021-10-17" ')* |  date = "2021-10-17"
